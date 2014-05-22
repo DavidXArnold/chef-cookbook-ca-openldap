@@ -21,6 +21,5 @@ suites:
   driver_config:
     box: centos-6.5
   run_list:
-   # - recipe[ca_openldap::gem_packages]
     - recipe[ca_openldap::server]
   attributes:
