@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-require 'active_ldap'
-require 'net/ldap'
+#require "active_ldap"
+#require "net-ldap"
 
 module Chef::Recipe::LDAPHelpers
 
@@ -101,7 +101,7 @@ class Chef::Recipe::LDAPUtils
   # Extract the first item of the given dn
   # @param [String] dn the dn to consider
   # @return [Hash] the key/value pair related to the first item of the dn
-  def self.first_item(dn) 
+  def self.first_item(dn)
     m = dn.match(/^([^=]+)=([^,]+)/)
     {m[1] => m[2]}
   end
@@ -128,7 +128,7 @@ class Chef::Recipe::LDAPConfigUtils
              else
                ""
              end
-    system("ldapsearch -Y EXTERNAL -H ldapi:// -b #{base} #{filter} | grep -q 'numEntries:'") 
+    system("ldapsearch -Y EXTERNAL -H ldapi:// -b #{base} #{filter} | grep -q 'numEntries:'")
   end
 
   # Get the absolute path of an LDIF schema file given the root of the LDIF config

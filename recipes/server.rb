@@ -16,6 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+chef_gem 'net-ldap'
+chef_gem 'activeldap'
+require "active_ldap"
+require "net/ldap"
+#include gem_packages
 
 class Chef::Recipe
   include CAOpenldap
@@ -75,7 +80,7 @@ if (use_ldaps == "yes") && node.ca_openldap.use_existing_certs_and_key
   private_key_link do
     action :create
   end
-  
+
   ca_certificate_link do
     action :create
   end
@@ -98,11 +103,11 @@ ruby_block "bdb_config" do
     f.search_file_replace_line(/olcRootDN:/, "olcRootDN: #{my_root_dn}")
     f.search_file_delete_line(/olcRootPW:/)
     f.insert_line_after_match(/olcRootDN:/, "olcRootPW: #{password}")
-    
+
     #configure log level
     f.search_file_delete_line(/olcLogLevel:/)
     f.insert_line_after_match(/olcRootPW:/, "olcLogLevel: #{node.ca_openldap.ldap_log_level}")
-    
+
     #configure acl
     f.search_file_delete_line(/olcAccess:/)
     index = 0

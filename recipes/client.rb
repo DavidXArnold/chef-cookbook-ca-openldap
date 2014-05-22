@@ -25,8 +25,8 @@ package "openldap-clients" do
   action :upgrade
 end
 
-ldap_conf = case node[:platform]
-when "redhat"
+ldap_conf = case node[:platform_family]
+when "rhel"
   "/etc/openldap/ldap.conf"
 end
 

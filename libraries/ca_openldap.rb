@@ -19,7 +19,7 @@
 
 module Chef::Recipe::CAOpenldap
 
-  
+
   def parse_populate_data_bag_item
 
     config = data_bag_item('ca_openldap', 'populate')
@@ -45,7 +45,7 @@ module Chef::Recipe::CAOpenldap
   # This helper method concatenates the rootdn attribute and the basedn
   # to build the absolute rootdn.
   # @return [String] the absolute rootdn.
-  def build_rootdn 
+  def build_rootdn
     [node.ca_openldap.rootdn, node.ca_openldap.basedn].join(',')
   end
 
@@ -54,8 +54,8 @@ module Chef::Recipe::CAOpenldap
   #   * :no - TLS connections are not supported, only clear connections are supported
   #   * :yes- TLS and clear connections are supported
   #   * :exclusive - only TLS connections are supported
-  # @return [Array<String>] an array of two elements, each element equals either "yes" or "no", 
-  # the first element indicates if plain connections (LDAP) are supported, the second element 
+  # @return [Array<String>] an array of two elements, each element equals either "yes" or "no",
+  # the first element indicates if plain connections (LDAP) are supported, the second element
   # indicates if TLS connections (LDAPS) are supported.
   # @raise [Exception] tls_mode value is not supported.
   def use_ldap_or_ldaps?(tls_mode)

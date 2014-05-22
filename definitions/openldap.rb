@@ -65,7 +65,7 @@ define :ldap_schema do
       ldif = ldap_config.schema_path(ldif_dir, schema)
 
       f = Chef::Util::FileEdit.new(ldif)
-      f.search_file_replace_line(/dn: cn=\{\d+\}/, 
+      f.search_file_replace_line(/dn: cn=\{\d+\}/,
                                  "dn: cn=#{schema},cn=schema,cn=config")
       f.search_file_replace(/cn: \{\d+\}/, "cn: ")
       f.search_file_delete_line(/^(?:structuralObjectClass|entryUUID|creatorsName|createTimestamp|entryCSN|modifiersName|modifyTimestamp):/)
@@ -155,7 +155,7 @@ define :server_certificate_link do
   end
 end
 
-# Create a link under node.ca_openldap.tls.cacert_path which points to the CA Certificate under 
+# Create a link under node.ca_openldap.tls.cacert_path which points to the CA Certificate under
 # "/etc/pki/tls/certs/#{node['hostname']}-bundle.crt".
 #
 # The name of the created link is the X.509 hash with the extension ".0" in order to comply with what it is
@@ -185,7 +185,7 @@ end
 # This definition does not depend on any attribute.
 define :private_key_link do
 
-  # We create a hardlink in order to be able 
+  # We create a hardlink in order to be able
   # to set a different owner, group and mode
   link node.ca_openldap.tls.key_file do
     to "/etc/pki/tls/private/#{node['fqdn']}.key"

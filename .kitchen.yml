@@ -1,0 +1,26 @@
+---
+driver_plugin: vagrant
+# driver_config:
+#   require_chef_omnibus: latest
+provisioner:
+  name: chef_solo
+
+platforms:
+- name: centos-6.5-vmware
+  driver_config:
+    box: centos-6.5
+    box_url: https://nmd-vmware.s3-us-west-2.amazonaws.com/nmd-centos-6.5-x86_64-base.box
+    run_list:
+- name: centos-6.5-virtualbox
+  driver_config:
+    box: centos-6.5
+    box_url: https://nmd-virtualbox.s3-us-west-2.amazonaws.com/nmd-centos-6.5-x86_64-base.box
+    run_list:
+suites:
+- name: default
+  driver_config:
+    box: centos-6.5
+  run_list:
+   # - recipe[ca_openldap::gem_packages]
+    - recipe[ca_openldap::server]
+  attributes:

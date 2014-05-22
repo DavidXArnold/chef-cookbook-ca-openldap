@@ -16,4 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# chef_gem 'activeldap'
+# chef_gem 'net-ldap'
+# gem_package 'activeldap'
+# gem_package 'net-ldap'
 
+#include_recipe 'ca_openldap::gem_packages'
+#include_recipe 'ca_openldap::server'
