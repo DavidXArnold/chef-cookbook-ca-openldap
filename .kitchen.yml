@@ -26,5 +26,6 @@ suites:
     - recipe[ca_openldap::server]
     - recipe[ca_openldap::client]
     - recipe[ca_openldap::dit]
+    - recipe[ca_openldap::populate]
   data_bags_path: "<%= ENV['DATA_BAGS_PATH'] %>"
   attributes:
