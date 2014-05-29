@@ -86,6 +86,17 @@ if (use_ldaps == "yes") && node.ca_openldap.use_existing_certs_and_key
   end
 end
 
+# Place a Berkley DB configuration file into /var/lib/ldap
+execute 'DB_CONFIG' do
+  command "cp `rpm -ql openldap-servers | grep DB_CONFIG` \
+  /var/lib/ldap/DB_CONFIG"
+  user 'ldap'
+  group 'ldap'
+  umask '0177'
+  action :run
+  not_if { ::File.exists?('/var/lib/ldap/DB_CONFIG') }
+end
+
 # Configure the base DN, the root DN and its password
 my_root_dn = build_rootdn
 ruby_block "bdb_config" do

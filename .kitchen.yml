@@ -22,5 +22,9 @@ suites:
     box: centos-6.5
   run_list:
     - recipe[ca_openldap::default]
+    - recipe[ca_openldap::makeselfsignedcert]
+    - recipe[ca_openldap::server]
+    - recipe[ca_openldap::client]
+    - recipe[ca_openldap::dit]
   data_bags_path: "<%= ENV['DATA_BAGS_PATH'] %>"
   attributes:

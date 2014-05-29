@@ -45,6 +45,8 @@ ruby_block "Create_DIT" do
       end
     end
 
+    puts "BEEPBEEP node.ca_openldap.ldap_server, node.ca_openldap.ldap_port, my_root_dn, node.ca_openldap.rootpassword"
+
     lu = LDAPUtils.new(node.ca_openldap.ldap_server, node.ca_openldap.ldap_port, my_root_dn, node.ca_openldap.rootpassword)
 
     # The parse method is defined dynamically in order to have access to the lu variable.
