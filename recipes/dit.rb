@@ -30,12 +30,12 @@ include_recipe 'ca_openldap::default'
 my_root_dn = build_rootdn()
 
 ruby_block "Create_DIT" do
-  block do 
+  block do
 
     # Get the DIT definition.
     # First check if a 'dit' data bag item exists, and return the 'dit' hash included in this data bag item.
     # Otherwise return the node attribute cg.openldap.dit data bag item.
-    # Otherwise return the node attribute cg.openldap.dit.  
+    # Otherwise return the node attribute cg.openldap.dit.
     def get_dit_definition
       if data_bag('ca_openldap') && data_bag('ca_openldap').include?('dit')
         Chef::Log.info 'load dit data bag'

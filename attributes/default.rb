@@ -95,7 +95,7 @@ default.ca_openldap.config_dir = "#{node.ca_openldap.root_dir}/slapd.d"
 # :no TLS access is not allowed
 # :yes both clear and TLS accesses are allowed
 # :exclusive only TLS access is allowed (ldap_port shall be correctly set)
-default.ca_openldap.tls.enable = :no
+default.ca_openldap.tls.enable = :exclusive
 
 # Path of the directory which contains the TLS CA certificates
 default.ca_openldap.tls.cacert_path = "/etc/openldap/cacerts"
@@ -112,7 +112,7 @@ default.ca_openldap.tls.key_file = "/etc/openldap/certs/#{node.fqdn}.key"
 # * node.ca_openldap.tls.cacert_path + "/" + cacert_hash + ".0": points to the CA certificate chain (/etc/pki/tls/certs/<hostname>-bundle.crt for RHEL), cacert_hash is the X509 hash of the CA certificate file
 # Additionally the key file (/etc/pki/tls/private/<fqdn>.key) is copied to node.ca_openldap.tls.key_file.
 # This attribute is helpfull when certificates are deployed with the _certificate_ cookbook.
-default.ca_openldap.use_existing_certs_and_key = false
+default.ca_openldap.use_existing_certs_and_key = true
 
 # DN of the default ppolicy configuration (relative to basedn)
 default.ca_openldap.ppolicy_default_config_dn = "cn=passwordDefault,ou=policies"
