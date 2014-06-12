@@ -120,6 +120,15 @@ ruby_block "bdb_config" do
     f.insert_line_after_match(/olcRootPW:/, "olcLogLevel: #{node.ca_openldap.ldap_log_level}")
 
     #configure acl
+
+    if data_bag('ca_openldap').include?('server')
+      Chef::Log.info 'load server acl data bag item'
+      puts "BEEP BEEP data_bag ca_openldap/server found"
+      node.override.ca_openldap.acls = data_bag_item('ca_openldap', 'server')["acl"]
+      puts "BEEP BEEP #{node.ca_openldap.acls}"
+    else
+      puts "Could not find acl definition. Using:  #{node.ca_openldap.acls}"
+    end
     f.search_file_delete_line(/olcAccess:/)
     index = 0
     acls = node.ca_openldap.acls.inject("") do |acum, acl|
