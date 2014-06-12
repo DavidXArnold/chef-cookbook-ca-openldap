@@ -123,9 +123,7 @@ ruby_block "bdb_config" do
 
     if data_bag('ca_openldap').include?('server')
       Chef::Log.info 'load server acl data bag item'
-      puts "BEEP BEEP data_bag ca_openldap/server found"
       node.override.ca_openldap.acls = data_bag_item('ca_openldap', 'server')["acl"]
-      puts "BEEP BEEP #{node.ca_openldap.acls}"
     else
       puts "Could not find acl definition. Using:  #{node.ca_openldap.acls}"
     end
