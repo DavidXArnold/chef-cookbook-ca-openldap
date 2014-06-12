@@ -125,7 +125,7 @@ ruby_block "bdb_config" do
       Chef::Log.info 'load server acl data bag item'
       node.override.ca_openldap.acls = data_bag_item('ca_openldap', 'server')["acl"]
     else
-      puts "Could not find acl definition. Using:  #{node.ca_openldap.acls}"
+      Chef::Log.info "Could not find acl definition. Using:  #{node.ca_openldap.acls}"
     end
     f.search_file_delete_line(/olcAccess:/)
     index = 0
