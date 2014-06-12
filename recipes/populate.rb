@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Recipe File:: populate
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -24,10 +24,10 @@ class Chef::Recipe
     include CAOpenldap
 end
 
-lu = LDAPUtils.new(node.ca_openldap.ldap_server, 
-                   node.ca_openldap.ldap_port, 
-                   build_rootdn(), 
-                   node.ca_openldap.rootpassword)
+lu = LDAPUtils.new(node.nmd_openldap.ldap_server,
+                   node.nmd_openldap.ldap_port,
+                   build_rootdn(),
+                   node.nmd_openldap.rootpassword)
 
 parse_populate_data_bag_item do |dn, attrs|
   ruby_block "add_entry_#{dn}" do

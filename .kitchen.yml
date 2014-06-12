@@ -21,12 +21,12 @@ suites:
   driver_config:
     box: centos-6.5
   run_list:
-    - recipe[ca_openldap::default]
-    - recipe[ca_openldap::makeselfsignedcert]
-    - recipe[ca_openldap::server]
-    - recipe[ca_openldap::client]
-    - recipe[ca_openldap::dit]
-    - recipe[ca_openldap::populate]
-    - recipe[ca_openldap::ppolicy]
+    - recipe[nmd_openldap::default]
+    - recipe[nmd_openldap::makeselfsignedcert]
+    - recipe[nmd_openldap::server]
+    - recipe[nmd_openldap::client]
+    - recipe[nmd_openldap::dit]
+    - recipe[nmd_openldap::populate]
+    - recipe[nmd_openldap::ppolicy]
   data_bags_path: "<%= ENV['DATA_BAGS_PATH'] %>"
   attributes:

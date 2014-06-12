@@ -1,10 +1,10 @@
-# CHANGELOG for ca_openldap
+# CHANGELOG for nmd_openldap
 
-This file is used to list changes made in each version of ca_openldap.
+This file is used to list changes made in each version of nmd_openldap.
 
 ## 0.2.1:
 
-* Fix #2: Compile Error in server recipe on file resource node.ca_openldap.tls.key_file
+* Fix #2: Compile Error in server recipe on file resource node.nmd_openldap.tls.key_file
 * Fix #1: Wrong rootdn used for the ppolicy configuration creation
 
 ## 0.2.0:
@@ -15,7 +15,7 @@ previously deployed by the _certificate_ cookbook (see attribute `use_existing_c
 
 ## 0.1.0:
 
-* Initial release of ca_openldap
+* Initial release of nmd_openldap
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

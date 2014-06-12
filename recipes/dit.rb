@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Recipe File:: dit
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -25,7 +25,7 @@ end
 
 require 'net/ldap'
 
-include_recipe 'ca_openldap::default'
+include_recipe 'nmd_openldap::default'
 
 my_root_dn = build_rootdn()
 
@@ -37,15 +37,15 @@ ruby_block "Create_DIT" do
     # Otherwise return the node attribute cg.openldap.dit data bag item.
     # Otherwise return the node attribute cg.openldap.dit.
     def get_dit_definition
-      if data_bag('ca_openldap') && data_bag('ca_openldap').include?('dit')
+      if data_bag('nmd_openldap') && data_bag('nmd_openldap').include?('dit')
         Chef::Log.info 'load dit data bag'
-        data_bag_item('ca_openldap', 'dit')["dit"]
+        data_bag_item('nmd_openldap', 'dit')["dit"]
       else
-        node.ca_openldap.dit
+        node.nmd_openldap.dit
       end
     end
 
-    lu = LDAPUtils.new(node.ca_openldap.ldap_server, node.ca_openldap.ldap_port, my_root_dn, node.ca_openldap.rootpassword)
+    lu = LDAPUtils.new(node.nmd_openldap.ldap_server, node.nmd_openldap.ldap_port, my_root_dn, node.nmd_openldap.rootpassword)
 
     # The parse method is defined dynamically in order to have access to the lu variable.
     # This is a recursive method.

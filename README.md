@@ -26,41 +26,41 @@ Debian and Ubuntu are planned but currently not supported.
 
 ### Common attributes
 
-* `node.ca_openldap.basedn` - base DN of the directory (default: `"dc=example,dc=com"`).
-* `node.ca_openldap.ldap_server` - IP or hostname of the node which hosts the ldap server (default: `"localhost"`).
-* `node.ca_openldap.ldap_port` - TC port of the ldap server (default: `636`).
+* `node.nmd_openldap.basedn` - base DN of the directory (default: `"dc=example,dc=com"`).
+* `node.nmd_openldap.ldap_server` - IP or hostname of the node which hosts the ldap server (default: `"localhost"`).
+* `node.nmd_openldap.ldap_port` - TC port of the ldap server (default: `636`).
 
 ### Server attributes
 
-* `node.ca_openldap.db_dir` - Directory where the DBD files are created (default: `"/var/lib/ldap"`).
-* `node.ca_openldap.rootdn` - RootDN, relative to `node.ca_openldap.basedn` (default: `"cn=Manager"`)
-* `node.ca_openldap.rootpassword` - Root Password, it is strongly recommended to modify the default value (default: `"pa$$word"`) 
-* `node.ca_openldap.ldap_log_level` - Log level - see [Slapd config] (http://www.openldap.org/doc/admin24/slapdconfig.html) for explanation of supported values (default: `"-1"`)
-* `node.ca_openldap.acls` - ACLs, this is a ruby Array of the ACL to create, each line must comply with the OpenLDAP ACL syntax (default allows to read any attributes (except password) from any authenticated users and to write any attributes that belongs to the current user)
-* `node.ca_openldap.tls.enable` - Configure the TLS access support, accepted values are (default `:exclusive`): 
+* `node.nmd_openldap.db_dir` - Directory where the DBD files are created (default: `"/var/lib/ldap"`).
+* `node.nmd_openldap.rootdn` - RootDN, relative to `node.nmd_openldap.basedn` (default: `"cn=Manager"`)
+* `node.nmd_openldap.rootpassword` - Root Password, it is strongly recommended to modify the default value (default: `"pa$$word"`) 
+* `node.nmd_openldap.ldap_log_level` - Log level - see [Slapd config] (http://www.openldap.org/doc/admin24/slapdconfig.html) for explanation of supported values (default: `"-1"`)
+* `node.nmd_openldap.acls` - ACLs, this is a ruby Array of the ACL to create, each line must comply with the OpenLDAP ACL syntax (default allows to read any attributes (except password) from any authenticated users and to write any attributes that belongs to the current user)
+* `node.nmd_openldap.tls.enable` - Configure the TLS access support, accepted values are (default `:exclusive`): 
     * `:no` TLS access is not allowed
     * `:yes` both clear and TLS accesses are allowed
-    * `:exclusive` only TLS access is allowed (`node.ca_openldap.ldap_port` shall be correctly set)
-* `node.ca_openldap.tls.cacert_path` - Path of the directory where the CA certificates are stored (default: `"/etc/openldap/cacerts"`).
-* `node.ca_openldap.tls.cert_file` - Path of the node certificate (default: `"/etc/openldap/certs/#{node.fqdn}.pem"`). 
-* `node.ca_openldap.tls.key_file` - Path of the private key related to the node certificate (default: `"/etc/openldap/certs/#{node.fqdn}.key"`). 
-* `node.ca_openldap.use_existing_certs_and_key` - boolean configuring the support of certificates deployed with the _certificate_ cookbook. When true, assume the CA certificate, the server certificate and its related key already exist under default directory set by the _certificate_ cookbook (/etc/pki/tls for RHEL). Consequently, the following links are created:
-    * `node.ca_openldap.tls.cert_file`: points to the Server certificate (/etc/pki/tls/certs/\<fqdn\>.pem for RHEL).
-    * `node.ca_openldap.tls.cacert_path + "/" + cacert_hash + ".0"`: points to the CA certificate chain (/etc/pki/tls/certs/\<_hostname_\>-bundle.crt for RHEL), cacert_hash is the X509 hash of the CA certificate file.
-Additionally the key file (/etc/pki/tls/private/\<_fqdn_\>.key) is copied to `node.ca_openldap.tls.key_file`.
+    * `:exclusive` only TLS access is allowed (`node.nmd_openldap.ldap_port` shall be correctly set)
+* `node.nmd_openldap.tls.cacert_path` - Path of the directory where the CA certificates are stored (default: `"/etc/openldap/cacerts"`).
+* `node.nmd_openldap.tls.cert_file` - Path of the node certificate (default: `"/etc/openldap/certs/#{node.fqdn}.pem"`). 
+* `node.nmd_openldap.tls.key_file` - Path of the private key related to the node certificate (default: `"/etc/openldap/certs/#{node.fqdn}.key"`). 
+* `node.nmd_openldap.use_existing_certs_and_key` - boolean configuring the support of certificates deployed with the _certificate_ cookbook. When true, assume the CA certificate, the server certificate and its related key already exist under default directory set by the _certificate_ cookbook (/etc/pki/tls for RHEL). Consequently, the following links are created:
+    * `node.nmd_openldap.tls.cert_file`: points to the Server certificate (/etc/pki/tls/certs/\<fqdn\>.pem for RHEL).
+    * `node.nmd_openldap.tls.cacert_path + "/" + cacert_hash + ".0"`: points to the CA certificate chain (/etc/pki/tls/certs/\<_hostname_\>-bundle.crt for RHEL), cacert_hash is the X509 hash of the CA certificate file.
+Additionally the key file (/etc/pki/tls/private/\<_fqdn_\>.key) is copied to `node.nmd_openldap.tls.key_file`.
 
 ### PPolicy attributes
-* `node.ca_openldap.ppolicy_default_config_dn` - DN where the default ppolicy configuration is stored, relatively to the `node.ca_openldap.basedn` (default: `"cn=passwordDefault,ou=policies"`).
+* `node.nmd_openldap.ppolicy_default_config_dn` - DN where the default ppolicy configuration is stored, relatively to the `node.nmd_openldap.basedn` (default: `"cn=passwordDefault,ou=policies"`).
 * `node.ca\_openldap.ppolicy\_default\_config` - Default ppolicy configuration, supported attributes are defined by section "Object Class Attributes" in slapo-ppolicy(5) (check default value in `attributes/default.rb`)
 
 
 ### Schema attributes
 
-* `node.ca_openldap.schema_cookbook` - cookbook name which includes additional schema do set up, schemas are search as cookbook distribution files, under files/default/schemas/ (default: nil)
-* `node.ca_openldap.additional_schemas` - List of schemas to import in the directory, the suffix ".schema" is added to each item of the list to build the complete file name (default : [])
+* `node.nmd_openldap.schema_cookbook` - cookbook name which includes additional schema do set up, schemas are search as cookbook distribution files, under files/default/schemas/ (default: nil)
+* `node.nmd_openldap.additional_schemas` - List of schemas to import in the directory, the suffix ".schema" is added to each item of the list to build the complete file name (default : [])
 
 ### DIT attributes
-* `node.ca_openldap.dit` - JSON structure which defines the DIT, this attribute can be overriden by the `ca_openldap/dit` data bag item, see `dit` recipe for additional information.
+* `node.nmd_openldap.dit` - JSON structure which defines the DIT, this attribute can be overriden by the `nmd_openldap/dit` data bag item, see `dit` recipe for additional information.
 
 
 ## Recipes
@@ -81,13 +81,13 @@ This recipe performs the following actions:
 
 Install the OpenLDAP client packages and configure access to an OpenLDAP Server.
 
-This recipe depends on the common attributes and the `node.ca_openldap.use_existing_certs_and_key` and `node.ca_openldap.tls.cacert_path`attributes.
+This recipe depends on the common attributes and the `node.nmd_openldap.use_existing_certs_and_key` and `node.nmd_openldap.tls.cacert_path`attributes.
 
 ### dit
 
 Install the DIT based on a provided data bag item. 
 
-The DIT is defined by the `ca_openldap/dit` data bag item if it exists, otherwise by the `node.ca_openldap.dit` attribute.
+The DIT is defined by the `nmd_openldap/dit` data bag item if it exists, otherwise by the `node.nmd_openldap.dit` attribute.
 
 Each entry of the DIT is defined by an hash, where:
 * the key is the part of the DN relative to its parent
@@ -97,7 +97,7 @@ Each entry of the DIT is defined by an hash, where:
 
 In the case of the data bag item, the DIT structure is found under the `"dit"` hash key.
 
-Example of `ca_openldap/dit` data bag item:
+Example of `nmd_openldap/dit` data bag item:
 
 ```json
     {
@@ -139,14 +139,14 @@ Each provided schema file must comply with the standard schema format (have a lo
 
 Populate the directory based on a provided data bag item.
 
-The data bag item is `ca_openldap/populate`. This data bag item shall defines the following entries:
+The data bag item is `nmd_openldap/populate`. This data bag item shall defines the following entries:
 * a `"base"` which specify the DN to append to each consecutive branch DN
 * a list of branches (under `"branches"`) . Each branch is defined by the following entries:
     * a `"name"` which defines the relative DN of the branch
     * a list of default classes (under `"default_classes"`) to apply to each consecutive entry
     * a list of entries (under `"entries"`), each item of this list defines an entry to create or update in the directory under the related branch. An item is a hash where keys and values maps the LDAP attribute names and values.
 
-Example of `ca_openldap/populate` data bag item:
+Example of `nmd_openldap/populate` data bag item:
 
 ```json
     {
@@ -210,24 +210,24 @@ Configure the PPolicy module.
 
 ## TLS support
 
-TLS support is managed by the `server` recipe and configured by the `node.ca_openldap.tls.*` attributes and `node.ca_openldap.use_existing_certs_and_key` attribute.
-If `node.ca_openldap.use_existing_certs_and_key` is set to false, the recipe assumes that the server and CA certificates and the server key are already provided by another cookbook.
+TLS support is managed by the `server` recipe and configured by the `node.nmd_openldap.tls.*` attributes and `node.nmd_openldap.use_existing_certs_and_key` attribute.
+If `node.nmd_openldap.use_existing_certs_and_key` is set to false, the recipe assumes that the server and CA certificates and the server key are already provided by another cookbook.
 Note that openldap expects that CA certificate names should have their names of the form "xxxxx.0", where "xxxxx" is x509 hash of the certificate.
 
 The x509 hash can be easily generated with the following command:
 
     openssl x509 -noout -hash -in /path/to/certificate.pem
 
-If `node.ca_openldap.use_existing_certs_and_key` is set to true, 
+If `node.nmd_openldap.use_existing_certs_and_key` is set to true, 
 the recipe assumes that the server and CA certificates 
 were previously deployed by the _certificate_ cookbook under the default locations.
 Consequently, the recipe creates two links which point to the server and CA certificates:
-* the server certificate link is created under the `node.ca_openldap.tls.cert_file` location,
-* the CA certification link is created in the `node.ca_openldap.tls.cacert_path` directory, with the proper name as explaine above.  
-Additionaly, the recipe copies the server key to the `node.ca_openldap.tls.key_file` location.
+* the server certificate link is created under the `node.nmd_openldap.tls.cert_file` location,
+* the CA certification link is created in the `node.nmd_openldap.tls.cacert_path` directory, with the proper name as explaine above.  
+Additionaly, the recipe copies the server key to the `node.nmd_openldap.tls.key_file` location.
 
-Take care to correctly set the `node.ca_openldap.ldap_port` attribute 
-to the LDAPS default port (636) when `node.ca_openldap.tls.enable_tls` is set to `:exclusive`, 
+Take care to correctly set the `node.nmd_openldap.ldap_port` attribute 
+to the LDAPS default port (636) when `node.nmd_openldap.tls.enable_tls` is set to `:exclusive`, 
 otherwise the `dit` and `populate` recipes will not work.
 
 License and Author

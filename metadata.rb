@@ -1,4 +1,4 @@
-name             'ca_openldap'
+name             'nmd_openldap'
 #maintainer       'Christophe Arguel'
 #maintainer_email 'christophe.arguel@free.fr'
 #license          'Apache 2.0'
