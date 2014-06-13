@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ca_openldap
-# Library File:: ca_openldap
+# Cookbook Name:: nmd_openldap
+# Library File:: nmd_openldap
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
 #
@@ -22,7 +22,7 @@ module Chef::Recipe::CAOpenldap
 
   def parse_populate_data_bag_item
 
-    config = data_bag_item('ca_openldap', 'populate')
+    config = Chef::EncryptedDataBagItem.load('nmd_openldap', 'populate')
     base = config['base']
 
     config['branches'].each do |branch|
@@ -46,7 +46,7 @@ module Chef::Recipe::CAOpenldap
   # to build the absolute rootdn.
   # @return [String] the absolute rootdn.
   def build_rootdn
-    [node.ca_openldap.rootdn, node.ca_openldap.basedn].join(',')
+    [node.nmd_openldap.rootdn, node.nmd_openldap.basedn].join(',')
   end
 
   # Determine if slapd must use LDAP and/or LDAPS protocol depending on the tls_mode.

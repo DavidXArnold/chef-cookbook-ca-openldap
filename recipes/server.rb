@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Recipe File:: server
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -26,7 +26,9 @@ class Chef::Recipe
   include CAOpenldap
 end
 
-include_recipe "ca_openldap::client"
+node.override.nmd_openldap.rootpassword = Chef::EncryptedDataBagItem.load('nmd_openldap', 'server')["rootpassword"]
+
+include_recipe "nmd-openldap::client"
 
 # Install needed packages
 package "openldap-servers" do
@@ -38,7 +40,7 @@ service "slapd" do
   action [:enable, :stop]
 end
 
-directory node.ca_openldap.db_dir do
+directory node.nmd_openldap.db_dir do
   user "ldap"
   group "ldap"
   mode 0700
@@ -46,22 +48,22 @@ directory node.ca_openldap.db_dir do
 end
 
 # TLS certificate and key path configuration
-if node.ca_openldap.tls.enable != :no
+if node.nmd_openldap.tls.enable != :no
   ruby_block "tls_path_configuration" do
     block do
 
       # Update TLS path configuration
-      f = Chef::Util::FileEdit.new("#{node.ca_openldap.config_dir}/cn=config.ldif")
-      f.search_file_replace_line(/olcTLSCACertificatePath:/, "olcTLSCACertificatePath: #{node.ca_openldap.tls.cacert_path}")
-      f.search_file_replace_line(/olcTLSCertificateFile:/, "olcTLSCertificateFile: #{node.ca_openldap.tls.cert_file}")
-      f.search_file_replace_line(/olcTLSCertificateKeyFile:/, "olcTLSCertificateKeyFile: #{node.ca_openldap.tls.key_file}")
+      f = Chef::Util::FileEdit.new("#{node.nmd_openldap.config_dir}/cn=config.ldif")
+      f.search_file_replace_line(/olcTLSCACertificatePath:/, "olcTLSCACertificatePath: #{node.nmd_openldap.tls.cacert_path}")
+      f.search_file_replace_line(/olcTLSCertificateFile:/, "olcTLSCertificateFile: #{node.nmd_openldap.tls.cert_file}")
+      f.search_file_replace_line(/olcTLSCertificateKeyFile:/, "olcTLSCertificateKeyFile: #{node.nmd_openldap.tls.key_file}")
       f.write_file
     end
   end
 end
 
 # TLS connection configuration
-(use_ldap, use_ldaps) = use_ldap_or_ldaps?(node.ca_openldap.tls.enable)
+(use_ldap, use_ldaps) = use_ldap_or_ldaps?(node.nmd_openldap.tls.enable)
 
 ruby_block "tls_connection_configuration" do
   block do
@@ -72,7 +74,7 @@ ruby_block "tls_connection_configuration" do
   end
 end
 
-if (use_ldaps == "yes") && node.ca_openldap.use_existing_certs_and_key
+if (use_ldaps == "yes") && node.nmd_openldap.use_existing_certs_and_key
   server_certificate_link do
     action :create
   end
@@ -103,12 +105,12 @@ ruby_block "bdb_config" do
   block do
 
     slapd_conf_file = '/etc/openldap/slapd.d/cn=config/olcDatabase={2}bdb.ldif'
-    password = LDAPUtils.ssha_password(node.ca_openldap.rootpassword)
+    password = LDAPUtils.ssha_password(node.nmd_openldap.rootpassword)
 
     #configure suffix
     f = Chef::Util::FileEdit.new(slapd_conf_file)
-    f.search_file_replace_line(/olcDbDirectory:/, "olcDbDirectory: #{node.ca_openldap.db_dir}")
-    f.search_file_replace_line(/olcSuffix:/, "olcSuffix: #{node.ca_openldap.basedn}")
+    f.search_file_replace_line(/olcDbDirectory:/, "olcDbDirectory: #{node.nmd_openldap.db_dir}")
+    f.search_file_replace_line(/olcSuffix:/, "olcSuffix: #{node.nmd_openldap.basedn}")
 
     #configure root dn and root password
     f.search_file_replace_line(/olcRootDN:/, "olcRootDN: #{my_root_dn}")
@@ -117,19 +119,19 @@ ruby_block "bdb_config" do
 
     #configure log level
     f.search_file_delete_line(/olcLogLevel:/)
-    f.insert_line_after_match(/olcRootPW:/, "olcLogLevel: #{node.ca_openldap.ldap_log_level}")
+    f.insert_line_after_match(/olcRootPW:/, "olcLogLevel: #{node.nmd_openldap.ldap_log_level}")
 
     #configure acl
 
-    if data_bag('ca_openldap').include?('server')
+    if data_bag('nmd_openldap').include?('server')
       Chef::Log.info 'load server acl data bag item'
-      node.override.ca_openldap.acls = data_bag_item('ca_openldap', 'server')["acl"]
+      node.override.nmd_openldap.acls = Chef::EncryptedDataBagItem.load('nmd_openldap', 'server')["acl"]
     else
-      Chef::Log.info "Could not find acl definition. Using:  #{node.ca_openldap.acls}"
+      Chef::Log.info "Could not find acl definition. Using:  #{node.nmd_openldap.acls}"
     end
     f.search_file_delete_line(/olcAccess:/)
     index = 0
-    acls = node.ca_openldap.acls.inject("") do |acum, acl|
+    acls = node.nmd_openldap.acls.inject("") do |acum, acl|
       acum << "olcAccess: {#{index}}#{acl}\n"
       index+= 1
       acum

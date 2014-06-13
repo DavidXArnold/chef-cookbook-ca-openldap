@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Recipe File:: ppolicy
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -28,7 +28,7 @@ end
 
 my_root_dn = build_rootdn()
 ldap_config = Chef::Recipe::LDAPConfigUtils.new
-ldap = Chef::Recipe::LDAPUtils.new(node.ca_openldap.ldap_server, node.ca_openldap.ldap_port, my_root_dn, node.ca_openldap.rootpassword)
+ldap = Chef::Recipe::LDAPUtils.new(node.nmd_openldap.ldap_server, node.nmd_openldap.ldap_port, my_root_dn, node.nmd_openldap.rootpassword)
 
 
 tmp_ppolicy_overlay_ldif = "/tmp/ppolicy_overlay.ldif"
@@ -62,9 +62,9 @@ ruby_block "ppolicy_config" do
     attrs = {
       objectClass: ["pwdPolicy", "person", "top"],
       sn: "PPolicy default config"
-    }.merge(node.ca_openldap.ppolicy_default_config)
+    }.merge(node.nmd_openldap.ppolicy_default_config)
 
-    ppolicy_default_config_dn = [node.ca_openldap.ppolicy_default_config_dn, node.ca_openldap.basedn].join(",")
+    ppolicy_default_config_dn = [node.nmd_openldap.ppolicy_default_config_dn, node.nmd_openldap.basedn].join(",")
     ldap.add_or_update_entry(ppolicy_default_config_dn, attrs)
   end
   action :create

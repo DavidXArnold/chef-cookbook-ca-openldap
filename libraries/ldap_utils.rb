@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Library File:: ldap_utils
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>

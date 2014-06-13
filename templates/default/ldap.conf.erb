@@ -13,10 +13,10 @@
 #DEREF          never
 
 # TLS certificates (needed for GnuTLS)
-BASE  <%=node['ca_openldap']['basedn']%>
-<%if node.ca_openldap.tls.enable == :exclusive%>
-URI   ldaps://<%=node['ca_openldap']['server']%>
+BASE  <%=node['nmd_openldap']['basedn']%>
+<%if node.nmd_openldap.tls.enable == :exclusive%>
+URI   ldaps://<%=node['nmd_openldap']['server']%>
 <%else%>
-URI   ldap://<%=node['ca_openldap']['server']%>
+URI   ldap://<%=node['nmd_openldap']['server']%>
 <%end%>
-TLS_CACERTDIR     <%=node.ca_openldap.tls.cacert_path%>
+TLS_CACERTDIR     <%=node.nmd_openldap.tls.cacert_path%>

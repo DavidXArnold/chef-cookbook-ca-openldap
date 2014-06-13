@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ca_openldap
+# Cookbook Name:: nmd_openldap
 # Recipe File:: makeselfsignedcerts
 #
 # Copyright 2014, David Arnold <david@newmediadenver.com>
