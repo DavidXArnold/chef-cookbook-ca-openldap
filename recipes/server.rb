@@ -26,6 +26,8 @@ class Chef::Recipe
   include CAOpenldap
 end
 
+node.override.nmd_openldap.rootpassword = Chef::EncryptedDataBagItem.load('nmd_openldap', 'server')["rootpassword"]
+
 include_recipe "nmd-openldap::client"
 
 # Install needed packages

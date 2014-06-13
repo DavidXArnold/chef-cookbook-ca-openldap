@@ -1,6 +1,9 @@
 # CHANGELOG for nmd-openldap
 
 This file is used to list changes made in each version of nmd_openldap.
+## 0.3.4:
+* moved root pwd to databag
+
 ## 0.3.3:
 * Fixed more typos from rename
 
