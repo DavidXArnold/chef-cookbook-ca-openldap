@@ -22,7 +22,7 @@ module Chef::Recipe::CAOpenldap
 
   def parse_populate_data_bag_item
 
-    config = data_bag_item('nmd_openldap', 'populate')
+    config = Chef::EncryptedDataBagItem.load('nmd_openldap', 'populate')
     base = config['base']
 
     config['branches'].each do |branch|

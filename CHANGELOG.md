@@ -1,6 +1,14 @@
-# CHANGELOG for nmd_openldap
+# CHANGELOG for nmd-openldap
 
 This file is used to list changes made in each version of nmd_openldap.
+## 0.3.3:
+* Fixed more typos from rename
+
+## 0.3.2:
+* Fixed a typo from rename and move databags to use only encrypted  
+
+## 0.3.1:
+* added kitchen support, self signed recipe, moved and renamed to nmd-openldap.
 
 ## 0.2.1:
 

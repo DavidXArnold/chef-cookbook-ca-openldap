@@ -25,7 +25,7 @@ end
 
 require 'net/ldap'
 
-include_recipe 'nmd_openldap::default'
+include_recipe 'nmd-openldap::default'
 
 my_root_dn = build_rootdn()
 
@@ -39,7 +39,7 @@ ruby_block "Create_DIT" do
     def get_dit_definition
       if data_bag('nmd_openldap') && data_bag('nmd_openldap').include?('dit')
         Chef::Log.info 'load dit data bag'
-        data_bag_item('nmd_openldap', 'dit')["dit"]
+        Chef::EncryptedDataBagItem.load('nmd_openldap', 'dit')["dit"]
       else
         node.nmd_openldap.dit
       end
