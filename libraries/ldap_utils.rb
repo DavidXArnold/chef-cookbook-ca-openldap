@@ -116,6 +116,10 @@ class Chef::Recipe::LDAPUtils
   def self.ssha_password(clear_password)
     ActiveLdap::UserPassword.ssha clear_password
   end
+
+  def self.sha_password(clear_password)
+    ActiveLdap::UserPassword.sha clear_password
+  end
 end
 
 class Chef::Recipe::LDAPConfigUtils

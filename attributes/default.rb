@@ -38,6 +38,14 @@ default.nmd_openldap.rootpassword = "pa$$word"
 # Default log level of the accesses to the bdb database
 default.nmd_openldap.ldap_log_level = "-1"
 
+# Define if encrypted databags are used.
+default.nmd_openldap.use_encrypted_databags = true
+
+# Define a secondary attribute to store a SHA hashed value of a users password
+# If defined a SHA hash will be generated from the supplied password for each
+# defined user and placed in this attribute. Typically this is not used.
+default.nmd_openldap.user_secondary_passwd_attribute = nil
+
 # Default ACL
 default.nmd_openldap.acls = ["to attrs=userPassword by self =xw by anonymous auth by * none",
                             "to * by self write by users read by * none"]
@@ -116,7 +124,6 @@ default.nmd_openldap.use_existing_certs_and_key = true
 
 # DN of the default ppolicy configuration (relative to basedn)
 default.nmd_openldap.ppolicy_default_config_dn = "cn=passwordDefault,ou=policies"
-
 
 # Default ppolicy configuration (supported attributes are defined by section "Object Class Attributes" in slapo-ppolicy(5))
 default.nmd_openldap.ppolicy_default_config = {

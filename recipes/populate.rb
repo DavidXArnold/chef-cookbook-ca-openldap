@@ -37,6 +37,11 @@ parse_populate_data_bag_item do |dn, attrs|
       password = attrs['userPassword']
       if (password && ! password.match(/\{(?:S?SHA|MD5)\}/))
         attrs["userPassword"] = LDAPUtils.ssha_password password
+        unless node.nmd_openldap.user_secondary_passwd_attribute.nil?
+         puts "BEEP BEEP"
+          puts node.nmd_openldap.user_secondary_passwd_attribute
+          attrs[node.nmd_openldap.user_secondary_passwd_attribute] = LDAPUtils.sha_password password
+        end
       end
 
       Chef::Log.info "add entry dn=#{dn}, attrs=#{attrs}"
