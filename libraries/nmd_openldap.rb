@@ -18,11 +18,12 @@
 #
 
 module Chef::Recipe::CAOpenldap
-
-
   def parse_populate_data_bag_item
-
-    config = Chef::EncryptedDataBagItem.load('nmd_openldap', 'populate')
+    if node.nmd_openldap.use_encrypted_databags
+      config = Chef::EncryptedDataBagItem.load('nmd_openldap', 'populate')
+    else
+      config = Chef::DataBagItem.load('nmd_openldap', 'populate')
+    end
     base = config['base']
 
     config['branches'].each do |branch|
