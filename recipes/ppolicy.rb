@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nmd_openldap
+# Cookbook Name:: nmd-openldap
 # Recipe File:: ppolicy
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -18,7 +18,7 @@
 #
 
 class Chef::Recipe
-    include CAOpenldap
+  include CAOpenldap
 end
 
 #configure module

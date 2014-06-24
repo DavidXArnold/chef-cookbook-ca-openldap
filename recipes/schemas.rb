@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nmd_openldap
+# Cookbook Name:: nmd-openldap
 # Recipe File:: schemas
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
