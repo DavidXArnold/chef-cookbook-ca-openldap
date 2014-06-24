@@ -1,6 +1,11 @@
 # CHANGELOG for nmd-openldap
 
 This file is used to list changes made in each version of nmd_openldap.
+## 0.3.8:
+* fixed additional typo and missed encrypted databag logic in server recipe.
+
+## 0.3.7:
+* fixed typo.
 
 ## 0.3.6:
 * Renamed nmd_openldap to nmd-openldap to fix issues with underscore.
