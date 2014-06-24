@@ -19,7 +19,7 @@
 
 module Chef::Recipe::CAOpenldap
   def parse_populate_data_bag_item
-    if node.nmd_openldap.use_encrypted_databags
+    if node.nmd_openldap.use_encrypted_databags == :yes
       config = Chef::EncryptedDataBagItem.load('nmd_openldap', 'populate')
     else
       config = Chef::DataBagItem.load('nmd_openldap', 'populate')

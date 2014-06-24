@@ -39,7 +39,7 @@ ruby_block "Create_DIT" do
     def get_dit_definition
       if data_bag('nmd_openldap') && data_bag('nmd_openldap').include?('dit')
         Chef::Log.info 'load dit data bag'
-        if node.nmd_openldap.use_encrypted_databags
+        if node.nmd_openldap.use_encrypted_databags == :yes
           Chef::EncryptedDataBagItem.load('nmd_openldap', 'dit')["dit"]
         else
           Chef::DataBagItem.load('nmd_openldap', 'dit')["dit"]

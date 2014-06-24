@@ -25,7 +25,7 @@ class Chef::Recipe
   include CAOpenldap
 end
 
-if node.nmd_openldap.use_encrypted_databags
+if node.nmd_openldap.use_encrypted_databags == :yes
   node.override.nmd_openldap.rootpassword = Chef::EncryptedDataBagItem.load('nmd_openldap', 'server')["rootpassword"]
 else
   node.override.nmd_openldap.rootpassword = Chef::DataBagItem.load('nmd_openldap', 'server')["rootpassword"]
@@ -128,7 +128,11 @@ ruby_block "bdb_config" do
 
     if data_bag('nmd_openldap').include?('server')
       Chef::Log.info 'load server acl data bag item'
-      node.override.nmd_openldap.acls = Chef::DataBagItem.load('nmd_openldap', 'server')["acl"]
+      if node.nmd_openldap.use_encrypted_databags == :yes
+        node.override.nmd_openldap.acls = Chef::EncryptedDataBagItem.load('nmd_openldap', 'server')["acl"]
+      else
+        node.override.nmd_openldap.acls = Chef::DataBagItem.load('nmd_openldap', 'server')["acl"]
+      end
     else
       Chef::Log.info "Could not find acl definition. Using:  #{node.nmd_openldap.acls}"
     end

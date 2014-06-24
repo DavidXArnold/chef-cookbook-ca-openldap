@@ -39,7 +39,7 @@ default.nmd_openldap.rootpassword = "pa$$word"
 default.nmd_openldap.ldap_log_level = "-1"
 
 # Define if encrypted databags are used.
-default.nmd_openldap.use_encrypted_databags = true
+default.nmd_openldap.use_encrypted_databags = :yes
 
 # Define a secondary attribute to store a SHA hashed value of a users password
 # If defined a SHA hash will be generated from the supplied password for each
