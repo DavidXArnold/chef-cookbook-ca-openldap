@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nmd_openldap
+# Cookbook Name:: nmd-openldap
 # Recipe File:: server
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -20,7 +20,6 @@ chef_gem 'net-ldap'
 chef_gem 'activeldap'
 require "active_ldap"
 require "net/ldap"
-#include gem_packages
 
 class Chef::Recipe
   include CAOpenldap
@@ -32,7 +31,7 @@ else
   node.override.nmd_openldap.rootpassword = Chef::DataBagItem.load('nmd_openldap', 'server')["rootpassword"]
 end
 
-include_recipe "nmd_openldap::client"
+include_recipe "nmd-openldap::client"
 
 # Install needed packages
 package "openldap-servers" do

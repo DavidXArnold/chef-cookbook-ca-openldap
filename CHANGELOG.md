@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of nmd_openldap.
 
+## 0.3.6:
+* Renamed nmd_openldap to nmd-openldap to fix issues with underscore.
+
 ## 0.3.5:
 * Added support to toggle bewteen encrypted and non-encrypted databags.  Added support for secondary password attribute.
 

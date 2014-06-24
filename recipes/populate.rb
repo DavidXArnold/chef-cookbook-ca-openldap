@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nmd_openldap
+# Cookbook Name:: nmd-openldap
 # Recipe File:: populate
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -21,7 +21,7 @@ chef_gem 'net-ldap'
 chef_gem 'activeldap'
 
 class Chef::Recipe
-    include CAOpenldap
+  include CAOpenldap
 end
 
 lu = LDAPUtils.new(node.nmd_openldap.ldap_server,

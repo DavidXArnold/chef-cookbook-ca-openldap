@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nmd_openldap
+# Cookbook Name:: nmd-openldap
 # Recipe File:: dit
 #
 # Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
@@ -25,7 +25,7 @@ end
 
 require 'net/ldap'
 
-include_recipe 'nmd_openldap::default'
+include_recipe 'nmd-openldap::default'
 
 my_root_dn = build_rootdn()
 
