@@ -1,6 +1,10 @@
 # CHANGELOG for nmd-openldap
 
 This file is used to list changes made in each version of nmd_openldap.
+
+## 0.3.9:
+* removed debug in populate recipe.
+
 ## 0.3.8:
 * fixed additional typo and missed encrypted databag logic in server recipe.
 
