@@ -1,7 +1,7 @@
-ca\_openldap Chef Cookbook
+nmd-openldap Chef Cookbook
 ==========================
 
-This cookbook provides several recipes to perform the following actions:
+This cookbook is based on the ca-openldap cookbook located at https://github.com/carguel/chef-cookbook-ca-openldap . It contains support for test ktichen and provides several recipes to perform the following actions:
 * configure a node to be an OpenLDAP server or OpenLDAP client,
 * import specific schemas, 
 * create a DIT, 
